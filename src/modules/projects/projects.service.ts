@@ -32,8 +32,15 @@ export class ProjectsService {
     return project;
   }
 
-  async create(createProjectDto: CreateProjectDto): Promise<Project> {
-    const project = this.projectRepository.create(createProjectDto);
+  async create(
+    createProjectDto: CreateProjectDto,
+    ownerId: number,
+  ): Promise<Project> {
+    const project = this.projectRepository.create({
+      ...createProjectDto,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      ownerId,
+    });
     return await this.projectRepository.save(project);
   }
 

@@ -4,7 +4,7 @@ import {
   IsOptional,
   MinLength,
   MaxLength,
-  IsNumber,
+  // IsNumber,
 } from 'class-validator';
 import { ProjectStatus } from '../entities/project.entity';
 
@@ -22,6 +22,6 @@ export class CreateProjectDto {
   @IsEnum(ProjectStatus)
   status?: ProjectStatus;
 
-  @IsNumber()
-  ownerId: number;
+  // @IsNumber()
+  // ownerId: number;
 }
