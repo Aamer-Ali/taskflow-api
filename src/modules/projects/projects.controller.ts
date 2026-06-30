@@ -14,6 +14,8 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import type { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
+import { UserRole } from '../users/entities/user.entity';
+import { Roles } from 'src/common/decorators/roles.decorator';
 
 @Controller('projects')
 export class ProjectsController {
@@ -45,6 +47,7 @@ export class ProjectsController {
     return this.projectsService.update(id, updateProjectDto);
   }
 
+  @Roles(UserRole.ADMIN)
   @Delete(':id')
   @HttpCode(204)
   remove(@Param('id', ParseIntPipe) id: number) {

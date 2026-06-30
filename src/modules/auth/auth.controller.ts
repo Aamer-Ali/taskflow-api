@@ -3,6 +3,7 @@ import { Public } from 'src/common/decorators/public.decorator';
 import { RegisterDto } from './dto/register.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -24,7 +25,7 @@ export class AuthController {
   @Public()
   @Post('refresh')
   @HttpCode(200)
-  refresh(@Body('refreshToken') refreshToken: string) {
-    return this.authService.refreshTokens(refreshToken);
+  refresh(@Body() refreshTokenDto: RefreshTokenDto) {
+    return this.authService.refreshTokens(refreshTokenDto.refreshToken);
   }
 }

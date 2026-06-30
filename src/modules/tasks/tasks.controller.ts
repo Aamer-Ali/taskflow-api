@@ -13,6 +13,8 @@ import {
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { UserRole } from '../users/entities/user.entity';
 
 @Controller()
 export class TasksController {
@@ -43,6 +45,7 @@ export class TasksController {
   }
 
   // DELETE /tasks/:id
+  @Roles(UserRole.ADMIN)
   @Delete('tasks/:id')
   @HttpCode(204)
   remove(@Param('id', ParseIntPipe) id: number) {

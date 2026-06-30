@@ -94,23 +94,27 @@ export class AuthService {
   async refreshTokens(refreshToken: string): Promise<{ accessToken: string }> {
     //Verify Refresh Token
 
-    const verifyOptions: JwtVerifyOptions = {
-      secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-    };
-    const payload = await this.jwtService.verifyAsync<JwtPayload>(
-      refreshToken,
-      verifyOptions,
-    );
+    try {
+      const verifyOptions: JwtVerifyOptions = {
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      };
+      const payload = await this.jwtService.verifyAsync<JwtPayload>(
+        refreshToken,
+        verifyOptions,
+      );
 
-    //find user still exists
+      //find user still exists
 
-    const user = await this.usersService.findOne(payload.sub);
+      const user = await this.usersService.findOne(payload.sub);
 
-    //generate access token
-    const accessToken = await this.generateAccessToken(user);
+      //generate access token
+      const accessToken = await this.generateAccessToken(user);
 
-    ///return access token
-    return { accessToken };
+      ///return access token
+      return { accessToken };
+    } catch {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
   }
 
   // ----- Helper Methods ------

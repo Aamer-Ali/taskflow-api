@@ -13,6 +13,7 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import databaseConfig from './config/database.config';
+import { RolesGuard } from './common/guards/roles.guard';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import databaseConfig from './config/database.config';
   providers: [
     AppService,
     { provide: APP_GUARD, useClass: AuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
     { provide: APP_INTERCEPTOR, useClass: ResponseTransformInterceptor },
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
   ],
