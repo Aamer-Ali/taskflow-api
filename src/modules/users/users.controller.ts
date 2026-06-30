@@ -8,15 +8,15 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  UseGuards,
+  // UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiKeyGuard } from 'src/common/guards/api-key.guard';
+// import { ApiKeyGuard } from 'src/common/guards/api-key.guard';
 
 @Controller('users')
-@UseGuards(ApiKeyGuard)
+// @UseGuards(ApiKeyGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

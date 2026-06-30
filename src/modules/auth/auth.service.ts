@@ -134,7 +134,9 @@ export class AuthService {
 
     const jwtOptions: JwtSignOptions = {
       secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-      expiresIn: this.configService.get<number>('JWT_ACCESS_EXPIRES') ?? 900,
+      expiresIn: Number(
+        this.configService.get<number>('JWT_ACCESS_EXPIRES') ?? 900,
+      ),
     };
 
     return this.jwtService.signAsync(payload, jwtOptions);
